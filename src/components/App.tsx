@@ -1,23 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import ControlPanel from './ControlPanel';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { retrieveComp } from '../services/resolumeService';
 import { components } from "../services/schema";
-import Layer from './Layer';
+import MobileLayout from '../core/MobileLayout';
+import useViewportWidth from '../hooks/useViewPortWidth';
+import DropDownClips from './DropDownClips';
 
 
 type Composition = components["schemas"]["Composition"];
-
+type Layer = components["schemas"]["Layer"];
 
 const App: React.FC = () => {
+
   const [composition, setComposition] = useState<Composition | null>(null)
+  const isWide = useViewportWidth(1242)
+
+  const [activeLayer, setActiveLayer] = useState<Layer | null>(null)
 
 
   useEffect(() => {
     const fetch = async () => {
       try {
         // collect composition on first load
-        const response = await retrieveComp()
-        setComposition(response)
+        const comp = await retrieveComp()
+        setComposition(comp)
+
       } catch (error) {
         console.error('Error fetching composition', error);
       }
@@ -26,41 +34,39 @@ const App: React.FC = () => {
     fetch()
   }, [])
 
+  useEffect(() => {
+    if (!composition || !composition.layers) return;
 
+    for (const l of composition?.layers) {
+      if (l.selected?.value) {
+        setActiveLayer(l)
+        break;
+      } else {
+        setActiveLayer(composition.layers[0])
+      }
+    }
+
+  }, [composition])
+
+  useEffect(() => { console.log(activeLayer) }, [activeLayer]);
 
   return (
     <>
-      <div className='row h-100'>
-        <h1>Resolume Arena Controller</h1>
-        <ControlPanel />
-        <hr />
-        <div className="col-md-6 d-flex flex-column">
-          <table className='table table-striped'>
-            <thead>
-              <tr>
-                <th>Layer</th>
-                <th>Clips</th>
-              </tr>
-            </thead>
-            <tbody>
-              {composition?.layers?.map(layer => (
-                <Layer key={layer.id} layer={layer} />
-              ))}
-            </tbody>
-          </table>
-        </div>
-        
-        <div>
-          {composition ? (
-            <div>
-              <pre>{JSON.stringify(composition, null, 2)}</pre>
-            </div>
+      <div className=''>
+        {isWide ? (
+          <h1>aaa</h1>
+        ) : (<MobileLayout>
+          <hr />
+          {activeLayer ? <DropDownClips id={Number(activeLayer?.id)}/> : "BÚ BÁ"}
+          
+          <div className="dropdown p-3 bg-light border">Select Clip</div>
+        </MobileLayout>
 
-          ) : (
-            <p>Loading composition...</p>
-          )}
-        </div>
+        )}
+
       </div>
+
+
 
     </>
 

@@ -1,43 +1,41 @@
 import React, { ReactNode } from 'react';
-import { Container, Row, Col, Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap';
+import { Container, Row, Col, Button, ButtonGroup } from 'react-bootstrap';
+import StickyFooterCarousel from './StickyFooter';
+import {components} from '../services/schema'
+
+type Composition = components["schemas"]["Composition"];
+
 
 interface MobileLayoutProps {
-    children: ReactNode;
-  }
-  
-  const MobileLayout: React.FC<MobileLayoutProps> = ({ children }) => {
+  children: ReactNode;
+
+}
+
+const MobileLayout: React.FC<MobileLayoutProps> = ({ children }) => {
   return (
     <div>
-      {/* Navbar */}
-      <Navbar bg="dark" variant="dark" expand="lg">
-        <Navbar.Brand href="#">Mobile WebGUI</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="mr-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-          </Nav>
-          <Form className='d-flex'>
-            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-            <Button variant="outline-success">Search</Button>
-          </Form>
-        </Navbar.Collapse>
-      </Navbar>
+      <div className="controls p-2">
+        <div className="d-flex justify-content-center">
+          <ButtonGroup style={{ width: '100%' }}>
+            <Button variant="primary" style={{ flex: '1', padding: '40 10' }}>Button 1</Button>
+            <Button variant="primary" style={{ flex: '1', padding: '40 10' }}>Button 2</Button>
+            <Button variant="primary" style={{ flex: '1', padding: '40 10' }}>Button 3</Button>
+            <Button variant="primary" style={{ flex: '1', padding: '40 10' }}>Button 4</Button>
+            <Button variant="primary" style={{ flex: '1', padding: '40 10' }}>Button 5</Button>
+          </ButtonGroup>
+        </div>
+      </div>
 
       {/* Main Content */}
       <Container fluid className="mt-3">
+
         <Row>
-          <Col xs={12} md={4} className="mb-3">
-            <div className="p-3 bg-light border">Sidebar</div>
-          </Col>
-          <Col xs={12} md={8} className="mb-3">
-            <div className="p-3 bg-light border">{children}</div>
+          <Col xs={12} md={12} className="dropdown mb-3">
+            {children}
           </Col>
         </Row>
         <Row>
-          <Col xs={12} className="mb-3">
-            <div className="p-3 bg-light border">Footer</div>
-          </Col>
+          <StickyFooterCarousel  />
         </Row>
       </Container>
     </div>

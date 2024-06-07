@@ -15,5 +15,22 @@
               </tbody>
             </table>
 
+                    <div className='hidden'>
+          {composition ? (
+            <div>
+              <pre>{JSON.stringify(composition, null, 2)}</pre>
+            </div>
+
+          ) : (
+            <p>Loading composition...</p>
+          )}
+        </div>
+      </div>
+
+        <Row>
+          <Col xs={12} md={12} className="mb-3">
+            <div className="p-3 bg-light border">{children}</div>
+          </Col>
+        </Row>
 
 - resolumeService.ts returns the `response.data` object!!!
