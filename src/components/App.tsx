@@ -57,9 +57,8 @@ const App: React.FC = () => {
           <h1>aaa</h1>
         ) : (<MobileLayout>
           <hr />
-          {activeLayer ? <DropDownClips id={Number(activeLayer?.id)}/> : "BÚ BÁ"}
+          {activeLayer ? <DropDownClips id={Number(activeLayer?.id)}/> : "BÚ BÁ semmi léjer nincs"}
           
-          <div className="dropdown p-3 bg-light border">Select Clip</div>
         </MobileLayout>
 
         )}
