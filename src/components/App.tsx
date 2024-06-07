@@ -15,6 +15,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetch = async () => {
       try {
+        // collect composition on first load
         const response = await retrieveComp()
         setComposition(response)
       } catch (error) {
@@ -36,8 +37,10 @@ const App: React.FC = () => {
         <div className="col-md-6 d-flex flex-column">
           <table className='table table-striped'>
             <thead>
-              <th>Layer</th>
-              <th>Clips</th>
+              <tr>
+                <th>Layer</th>
+                <th>Clips</th>
+              </tr>
             </thead>
             <tbody>
               {composition?.layers?.map(layer => (

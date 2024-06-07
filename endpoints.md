@@ -24,6 +24,8 @@ POST /composition/layers/add
 ======== CLIP ============
 GET /composition/layers/{layer-index}/clips/{clip-index}
 GET /composition/clips/selected
+GET /composition/clips/selected/thumbnail/{last-updated}
+✓ GET /composition/clips/by-id/{clip-id}
 
 PUT /composition/layers/{layer-index}/clips/{clip-index}
 PUT /composition/clips/selected
@@ -34,6 +36,8 @@ POST /composition/clips/selected/connect
 POST /composition/layers/{layer-index}/clips/{clip-index}/open 
     (https://resolume.com/docs/restapi/#/clip/clip_open)
 POST /composition/clips/selected/open
+
+GET /composition/effects/by-id/{effect-id}
 
 
 

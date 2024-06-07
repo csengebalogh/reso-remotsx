@@ -14,17 +14,19 @@ interface Layer {
 
 const Layer: React.FC<Layer> = ({ layer }) => {
 
-    const [ clipId, setClipId ] = useState<number>(0)
+    //Sine Wave loads default, throw no errors in browser
+    const [ clipId, setClipId ] = useState<number>(1702178623191)
 
     useEffect(() => {
         const fetch = async () => {
           try {
-            const response = await retrieveClipParams(clipId)
-            // displayClip(response)
-            console.log(response);
+            // when clip clicked, collect params by id, set this selected
+            const data = await retrieveClipParams(clipId)
+            // displayClip(data)
+            console.log(data.selected?.value);
             
           } catch (error) {
-            console.error('Error fetching composition', error);
+            console.error('Error retrieving clip', error);
           }
         }
     

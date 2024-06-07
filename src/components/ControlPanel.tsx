@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { retrieveComp, updateComp, startClip } from '../services/resolumeService';
+import { retrieveComp, updateComp, connectClip } from '../services/resolumeService';
 import {components} from "../services/schema";
 
 type Composition = components["schemas"]["Composition"];
@@ -13,7 +13,7 @@ const ControlPanel: React.FC = () => {
 
   const handleStartClip = async () => {
     try {
-      const result = await startClip(1, 1); // Example deckId and clipId
+      const result = await connectClip(1, 1); // Example deckId and clipId
       console.log('Clip started successfully', result);
     } catch (error) {
       console.error('Error starting clip', error);

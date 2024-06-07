@@ -5,6 +5,7 @@ const API_BASE_URL = 'http://127.0.0.1:8080/api/v1';
 export const retrieveComp = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/composition`);
+    console.log("Compod: ", response.data);
     
     return response.data;
   } catch (error) {
@@ -23,10 +24,10 @@ export const updateComp = async (changes:any) => {
   }
 }
 
-export const startClip = async (deckId: number, clipId: number) => {
+// Connect the clip by its position in the clip grid
+export const connectClip = async (layerIndex: number, clipIndex: number) => {
   try {
-    // const response = await axios.post(`${API_BASE_URL}/deck/${deckId}/clip/${clipId}/start`);
-    const response = await axios.post(`${API_BASE_URL}/composition/layers/2/clips/4/connect`);
+    const response = await axios.post(`${API_BASE_URL}/composition/layers/${layerIndex}/clips/${clipIndex}/connect`);
 
     return response.data;
   } catch (error) {
@@ -35,10 +36,11 @@ export const startClip = async (deckId: number, clipId: number) => {
   }
 };
 
+// Retrieve all clip information and associated effects
 export const retrieveClipParams = async(clipId: number) => {
   try {
     const response = await axios.get(`${API_BASE_URL}/composition/clips/by-id/${clipId}`);
-    console.log(response.data);
+    console.log("Clip details:", response.data);
     
     return response.data
   } catch (error) {
